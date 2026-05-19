@@ -31,15 +31,24 @@ search (BinNode x leftNode rightNode) n =
 -- takes in a function (f :: a -> b) and a BinTree, then returns a new BinTree where function was applied to each node
 treeMap :: (a -> b) -> BinTree a -> BinTree b
 treeMap f BinEmpty = BinEmpty
-treeMap f (BinNode x leftNode rightNode) = BinNode (f x) (map f leftNode) (map f rightNode)
-
+treeMap f (BinNode x leftNode rightNode) = BinNode (f x) (treeMap f leftNode) (treeMap f rightNode)
 
 
 -- inOrder Function
--- takes in function (f :: a -> b -> b), and accumulator value, and a BinTree and folds using the function
+inOrder :: (a -> b -> b) -> b -> BinTree a -> b
+inOrder f acc BinEmpty = acc
+inOrder f acc (BinNode x leftNode rightNode) =
+    let leftResult  = inOrder f acc leftNode  
+        nodeResult  = f x leftResult           
+        rightResult = inOrder f nodeResult rightNode 
+    in rightResult
 
 -- preOrder Function
 
+
 -- postOrder Function
+
+
+
 
 -- PART TWO: 
