@@ -4,30 +4,35 @@
 
 
 
+
+
+-- PART ONE: Preliminary Binary Tree Functionality
+
 -- TypeClass to define binary tree
 -- Derives (inherits) from Equality and Show TypeClasses (built-in)
 -- This says: a binary tree 
 data BinTree a = BinEmpty | BinNode a (BinTree a) (BinTree a) deriving (Eq, Show)
 
 
--- PART ONE: Preliminary Binary Tree Functionality
+-- Insert Function
+insert :: BinTree a -> a -> BinTree a                           -- Type signiture
+insert BinEmpty x = BinNode x (BinEmpty) (BinEmpty)             -- Empty tree case
+insert (BinNode x leftNode rightNode) n =                       
+    if n == x then BinNodeode n leftNode rightNode
+    else if n < x then BinNode x (insert leftNode n) rightNode
+    else n > x then BinNode x leftNode (insert rightNode n)
 
--- TODO: insert
--- takes in a BinTree and value, then produces a new BinTree that contains the value
-insert :: BinTree -> a -> BinTree
-insert BinTree a = 
-
--- TODO: search 
+-- Search Function 
 -- takes in a BinTree and value, then returns True if the value is in the tree or False otherwise
 
--- TODO: treeMap
+-- Mapping Function
 -- takes in a function (f :: a -> b) and a BinTree, then returns a new BinTree where function was applied to each node
 
--- TODO: inOrder
+-- inOrder Function
 -- takes in function (f :: a -> b -> b), and accumulator value, and a BinTree and folds using the function
 
--- TODO: preOrder
+-- preOrder Function
 
--- TODO: postOrder
+-- postOrder Function
 
 -- PART TWO: 
