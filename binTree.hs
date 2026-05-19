@@ -4,8 +4,6 @@
 
 
 
-
-
 -- PART ONE: Preliminary Binary Tree Functionality
 
 -- TypeClass to define binary tree
@@ -23,7 +21,13 @@ insert (BinNode x leftNode rightNode) n =
     else n > x then BinNode x leftNode (insert rightNode n)
 
 -- Search Function 
--- takes in a BinTree and value, then returns True if the value is in the tree or False otherwise
+search :: BinTree a -> a -> Bool                                -- Type signiture
+search BinEmpty x = False                                       -- Empty tree case
+search (BinNode x leftNode rightNode) n =
+    if n == x then True
+    else if n < x then search leftNode n
+    else search rightNode n
+
 
 -- Mapping Function
 -- takes in a function (f :: a -> b) and a BinTree, then returns a new BinTree where function was applied to each node
