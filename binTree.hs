@@ -7,22 +7,20 @@
 -- PART ONE: Preliminary Binary Tree Functionality
 
 -- TypeClass to define binary tree
--- Derives (inherits) from Equality and Show TypeClasses (built-in)
--- This says: a binary tree 
 data BinTree a = BinEmpty | BinNode a (BinTree a) (BinTree a) deriving (Eq, Show)
 
 
 -- Insert Function
-insert :: BinTree a -> a -> BinTree a                           -- Type signiture
-insert BinEmpty x = BinNode x (BinEmpty) (BinEmpty)             -- Empty tree case
-insert (BinNode x leftNode rightNode) n =                       
-    if n == x then BinNodeode n leftNode rightNode
+insert :: (Ord a) => BinTree a -> a -> BinTree a
+insert BinEmpty x = BinNode x BinEmpty BinEmpty
+insert (BinNode x leftNode rightNode) n =
+    if n == x then BinNode n leftNode rightNode
     else if n < x then BinNode x (insert leftNode n) rightNode
-    else n > x then BinNode x leftNode (insert rightNode n)
+    else BinNode x leftNode (insert rightNode n)
 
 -- Search Function 
-search :: BinTree a -> a -> Bool                                -- Type signiture
-search BinEmpty x = False                                       -- Empty tree case
+search :: (Ord a) => BinTree a -> a -> Bool                                
+search BinEmpty x = False                                   
 search (BinNode x leftNode rightNode) n =
     if n == x then True
     else if n < x then search leftNode n
@@ -31,6 +29,11 @@ search (BinNode x leftNode rightNode) n =
 
 -- Mapping Function
 -- takes in a function (f :: a -> b) and a BinTree, then returns a new BinTree where function was applied to each node
+treeMap :: (a -> b) -> BinTree a -> BinTree b
+treeMap f BinEmpty = BinEmpty
+treeMap f (BinNode x leftNode rightNode) = BinNode (f x) (map f leftNode) (map f rightNode)
+
+
 
 -- inOrder Function
 -- takes in function (f :: a -> b -> b), and accumulator value, and a BinTree and folds using the function
