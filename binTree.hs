@@ -44,6 +44,14 @@ inOrder f acc (BinNode x leftNode rightNode) =
     in rightResult
 
 -- preOrder Function
+preOrder :: (a -> b -> b) -> b -> BinTree a -> b
+preOrder f acc BinEmpty = acc
+preOrder f acc (BinNode x leftNode rightNode) =
+    let nodeResult  = f x acc                         -- 1. node first
+        leftResult  = preOrder f nodeResult leftNode  -- 2. then left
+        rightResult = preOrder f leftResult rightNode -- 3. then right
+    in rightResult
+
 
 
 -- postOrder Function
