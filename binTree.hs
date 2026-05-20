@@ -28,7 +28,6 @@ search (BinNode x leftNode rightNode) n =
 
 
 -- Mapping Function
--- takes in a function (f :: a -> b) and a BinTree, then returns a new BinTree where function was applied to each node
 treeMap :: (a -> b) -> BinTree a -> BinTree b
 treeMap f BinEmpty = BinEmpty
 treeMap f (BinNode x leftNode rightNode) = BinNode (f x) (treeMap f leftNode) (treeMap f rightNode)
@@ -47,16 +46,18 @@ inOrder f acc (BinNode x leftNode rightNode) =
 preOrder :: (a -> b -> b) -> b -> BinTree a -> b
 preOrder f acc BinEmpty = acc
 preOrder f acc (BinNode x leftNode rightNode) =
-    let nodeResult  = f x acc                         -- 1. node first
-        leftResult  = preOrder f nodeResult leftNode  -- 2. then left
-        rightResult = preOrder f leftResult rightNode -- 3. then right
+    let nodeResult  = f x acc                        
+        leftResult  = preOrder f nodeResult leftNode
+        rightResult = preOrder f leftResult rightNode
     in rightResult
 
 
-
 -- postOrder Function
+postOrder :: (a -> b -> b) -> b -> BinTree a -> b
+postOrder f acc BinEmpty = acc
+postOrder f acc (BinNode x leftNode rightNode) =
+    let leftResult  = postOrder f acc leftNode
+        rightResult = postOrder f leftResult rightNode
+        nodeResult  = f x rightResult
+    in nodeResult
 
-
-
-
--- PART TWO: 
